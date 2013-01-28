@@ -51,6 +51,11 @@ function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_
 			// Vkontakte does not provide user emails
 			$ruser['user_email'] = 'user' . $user_profile->identifier . '@odnoklassniki.ru';
 		}
+		elseif ($provider_code == 'twitter')
+		{
+			// Vkontakte does not provide user emails
+			$ruser['user_email'] = 'user' . $user_profile->identifier . '@twitter.com';
+		}
 		else
 			$ruser['user_email'] = $user_profile->email;
 	}
