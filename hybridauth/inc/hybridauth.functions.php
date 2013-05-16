@@ -14,12 +14,13 @@ $hybridauth_config = include $cfg['plugins_dir'] . '/hybridauth/conf/hybridauth.
 
 /**
  * Completes user profile fields with data retrieved from a hybrid profile
- * @param  object $user_profile  Hybrid_User_Profile object
- * @param  array  $ruser         Profile fields
- * @param  string $provider_code Lowercase provider name
+ * @param  object  $user_profile    Hybrid_User_Profile object
+ * @param  array   $ruser           Profile fields
+ * @param  string  $provider_code   Lowercase provider name
+ * @param  boolean $generate_emails Autogenerate fake email address if provider doesn't provide one
  * @return array                 Completed $ruser
  */
-function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_code = '')
+function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_code = '', $generate_emails = true)
 {
 	global $cfg, $cot_extrafields, $db, $db_users;
 
@@ -41,23 +42,15 @@ function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_
 
 	if (empty($ruser['user_email']))
 	{
-		if ($provider_code == 'vkontakte')
+		if (isset($user_profile->email) && !empty($user_profile->email))
 		{
-			// Vkontakte does not provide user emails
-			$ruser['user_email'] = 'user' . $user_profile->identifier . '@vk.com';
-		}
-		elseif ($provider_code == 'odnoklassniki')
-		{
-			// Vkontakte does not provide user emails
-			$ruser['user_email'] = 'user' . $user_profile->identifier . '@odnoklassniki.ru';
-		}
-		elseif ($provider_code == 'twitter')
-		{
-			// Vkontakte does not provide user emails
-			$ruser['user_email'] = 'user' . $user_profile->identifier . '@twitter.com';
-		}
-		else
 			$ruser['user_email'] = $user_profile->email;
+		}
+		elseif ($generate_emails)
+		{
+			// Provider does not provide user emails
+			$ruser['user_email'] = $user_profile->identifier . '@' . $provider_code . '.com';
+		}
 	}
 
 	if (empty($ruser['user_birthdate']))
@@ -87,9 +80,13 @@ function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_
 	// Some extra fields
 	if (isset($cot_extrafields[$db_users]['firstname']) && empty($ruser['user_firstname']))
 		$ruser['user_firstname'] = $user_profile->firstName;
+	if (isset($cot_extrafields[$db_users]['first_name']) && empty($ruser['user_first_name']))
+		$ruser['user_first_name'] = $user_profile->firstName;
 
 	if (isset($cot_extrafields[$db_users]['lastname']) && empty($ruser['user_lastname']))
 		$ruser['user_lastname'] = $user_profile->lastName;
+	if (isset($cot_extrafields[$db_users]['last_name']) && empty($ruser['user_last_name']))
+		$ruser['user_last_name'] = $user_profile->lastName;
 
 	if (!empty($provider_code))
 	{

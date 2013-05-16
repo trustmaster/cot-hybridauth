@@ -32,16 +32,16 @@ if ($a == 'login' && $usr['id'] == 0)
 		// Handle auth exception
 		switch ($e->getCode())
 		{
-			case 0 : $error = "Unspecified error."; break;
-			case 1 : $error = "Hybridauth configuration error."; break;
-			case 2 : $error = "Provider not properly configured."; break;
-			case 3 : $error = "Unknown or disabled provider."; break;
-			case 4 : $error = "Missing provider application credentials."; break;
-			case 5 : $error = "Authentification failed. The user has canceled the authentication or the provider refused the connection."; break;
-			case 6 : $error = "User profile request failed. Most likely the user is not connected to the provider and he should to authenticate again.";
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5: $error = $L['hybridauth_error_' . $e->getCode()]; break;
+			case 6: $error = $L['hybridauth_error_6'];
 				     $adapter->logout();
 				     break;
-			case 7 : $error = "User not connected to the provider.";
+			case 7: $error = $L['hybridauth_error_7'];
 				     $adapter->logout();
 				     break;
 		}
@@ -135,6 +135,8 @@ elseif ($a == 'unlink' && $usr['id'] > 0)
 		$adapter = $hybridauth->authenticate($provider);
 		$adapter->logout();
 	}
+	// Redirect back to profile
+	cot_redirect(cot_url('users', 'm=profile', '', true));
 }
 else
 {

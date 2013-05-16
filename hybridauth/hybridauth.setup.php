@@ -4,10 +4,10 @@
 Code=hybridauth
 Name=HybridAuth
 Description=Self-hosted single sign-on solution using several social networks for authentication, including Facebook, Twitter, Google, OpenID, Vk and others
-Version=1.0.0-2.1.0
-Date=2012-12-24
+Version=1.0.1-2.1.2
+Date=2013-05-01
 Author=Trustmaster
-Copyright=(c) Vladimir Sibirov, 2012
+Copyright=(c) Vladimir Sibirov, 2012-2013
 Notes=Edit plugins/hybridauth/conf/hybridauth.config.php after installation. Go to Admin / Configuration / HybridAuth and click Update every time you add more providers.
 Auth_guests=RW
 Lock_guests=2345A

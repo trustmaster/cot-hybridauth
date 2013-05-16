@@ -28,3 +28,12 @@ $L['hybridauth_unlink'] = 'Unlink';
  * Messages
  */
 $L['hybridauth_no_linked_account'] = 'There are no site accounts linked with your {$provider} account. Please log in with your existing site account or register a new account in a few clicks.';
+
+$L['hybridauth_error_0'] = 'Unspecified error.';
+$L['hybridauth_error_1'] = 'Hybridauth configuration error.';
+$L['hybridauth_error_2'] = 'Provider not properly configured.';
+$L['hybridauth_error_3'] = 'Unknown or disabled provider.';
+$L['hybridauth_error_4'] = 'Missing provider application credentials.';
+$L['hybridauth_error_5'] = 'Authentification failed. The user has canceled the authentication or the provider refused the connection.';
+$L['hybridauth_error_6'] = 'User profile request failed. Most likely the user is not connected to the provider and he should to authenticate again.';
+$L['hybridauth_error_7'] = 'User not connected to the provider.';
