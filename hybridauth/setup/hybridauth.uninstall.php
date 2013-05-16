@@ -2,9 +2,9 @@
 
 // Drop hybrid auth field on uninstall
 
-require_once cot_incfile('hybridauth', 'plug');
+// require_once cot_incfile('hybridauth', 'plug');
 
-$providers = array_filter(array_keys($hybridauth_config['providers']));
+// $providers = array_filter(array_keys($hybridauth_config['providers']));
 
 // For some weird reason the following loop halts the script
 
