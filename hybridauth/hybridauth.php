@@ -106,10 +106,35 @@ elseif ($a == 'link' && $usr['id'] > 0)
 	$field_name = "user_{$provider_code}_id";
 
 	// Authenticate via provider
-	$hybridauth = new Hybrid_Auth($hybridauth_config);
-	$adapter = $hybridauth->authenticate($provider);
-	// Get remote profile data
-	$user_profile = $adapter->getUserProfile();
+	try
+	{
+		$hybridauth = new Hybrid_Auth($hybridauth_config);
+		$adapter = $hybridauth->authenticate($provider);
+		// Get remote profile data
+		$user_profile = $adapter->getUserProfile();
+	}
+	catch (Exception $e)
+	{
+		// Handle auth exception
+		switch ($e->getCode())
+		{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5: $error = $L['hybridauth_error_' . $e->getCode()]; break;
+			case 6: $error = $L['hybridauth_error_6'];
+				     $adapter->logout();
+				     break;
+			case 7: $error = $L['hybridauth_error_7'];
+				     $adapter->logout();
+				     break;
+			default: $error = $e->getMessage();
+		}
+		cot_error($error);
+		cot_redirect(cot_url('users', 'm=profile', '', true));
+	}
 
 	// Only 1 account can be linked
 	if ($db->query("SELECT COUNT(*) FROM $db_users WHERE $field_name = ?", $user_profile->identifier)->fetchColumn() > 0)
