@@ -111,11 +111,19 @@ elseif ($a == 'link' && $usr['id'] > 0)
 	// Get remote profile data
 	$user_profile = $adapter->getUserProfile();
 
-	// Save profile fields
-	$db->update($db_users, array(
-			$field_name => $user_profile->identifier,
-			"user_{$provider_code}_url" => $user_profile->profileURL
-		), "user_id=?", $usr['id']);
+	// Only 1 account can be linked
+	if ($db->query("SELECT COUNT(*) FROM $db_users WHERE $field_name = ?", $user_profile->identifier)->fetchColumn() > 0)
+	{
+		cot_error('hybridauth_already_linked');
+	}
+	else
+	{
+		// Save profile fields
+		$db->update($db_users, array(
+				$field_name => $user_profile->identifier,
+				"user_{$provider_code}_url" => $user_profile->profileURL
+			), "user_id=?", $usr['id']);
+	}
 
 	// Redirect back to profile
 	cot_redirect(cot_url('users', 'm=profile', '', true));

@@ -27,6 +27,7 @@ $L['hybridauth_unlink'] = 'Unlink';
 /*
  * Messages
  */
+$L['hybridauth_already_linked'] = 'This account is already linked to another user';
 $L['hybridauth_no_linked_account'] = 'There are no site accounts linked with your {$provider} account. Please log in with your existing site account or register a new account in a few clicks.';
 
 $L['hybridauth_error_0'] = 'Unspecified error.';
