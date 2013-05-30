@@ -3,7 +3,7 @@
 	<!-- BEGIN: HYBRID_ACCOUNT -->
 	<tr>
 		<td>
-			<a href="{HYBRID_CONNECT_URL}" title="{PHP.L.hybridauth_connect}"><img src="http://cdn1.iconfinder.com/data/icons/socialmediaicons_v120/48/{HYBRID_ACCOUNT_CODE}.png" alt="{HYBRID_ACCOUNT_NAME}" /></a>
+			<a href="{HYBRID_ACCOUNT_CONNECT_URL}" title="{PHP.L.hybridauth_connect}"><img src="http://cdn1.iconfinder.com/data/icons/socialmediaicons_v120/48/{HYBRID_ACCOUNT_CODE}.png" alt="{HYBRID_ACCOUNT_NAME}" /></a>
 		</td>
 		<td>
 			<!-- IF {HYBRID_ACCOUNT_LINKED} -->
