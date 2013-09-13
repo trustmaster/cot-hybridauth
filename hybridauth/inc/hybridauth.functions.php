@@ -49,7 +49,8 @@ function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_
 		elseif ($generate_emails)
 		{
 			// Provider does not provide user emails
-			$ruser['user_email'] = $user_profile->identifier . '@' . $provider_code . '.com';
+			$ruser['user_email'] = md5($user_profile->identifier.microtime().$provider_code) . '@' . $provider_code . '.com';
+
 		}
 	}
 
