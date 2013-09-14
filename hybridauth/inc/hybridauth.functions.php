@@ -52,7 +52,7 @@ function hybridauth_complete_profile($user_profile, $ruser = array(), $provider_
 			$ruser['user_email'] = $user_profile->identifier . '@'. $provider_code . '.com';
 			if(mb_strlen($ruser['user_email']) > 64 || !cot_check_email($ruser['user_email']))
 			{
-				$ruser['user_email'] = md5($user_profile->identifier.microtime().$provider_code) . '@' . $provider_code . '.com';
+				$ruser['user_email'] = md5($user_profile->identifier.microtime()) . '@' . $provider_code . '.com';
 			}
 
 		}
